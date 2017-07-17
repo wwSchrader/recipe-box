@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 import RecipeItem from './RecipeItem.js';
+import {Button} from 'react-bootstrap';
 
 class App extends Component {
   constructor(props) {
@@ -26,6 +27,7 @@ class App extends Component {
     return (
       <div className="App">
         <RecipeItem recipeArray={this.state.recipeArray} />
+        <Button bsStyle="primary">Add a Recipe</Button>
       </div>
     );
   }
