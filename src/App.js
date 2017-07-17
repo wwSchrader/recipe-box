@@ -1,18 +1,31 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
+import RecipeItem from './RecipeItem.js';
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      recipeArray: [
+      {
+        name: 'Pumpkin Pie',
+        ingredients: ['pumpkin', 'pie-crust', 'whip cream']
+      },
+      {
+        name: 'Hot Chocolate',
+        ingredients: ['Coco mix', 'hot water', 'milk']
+      },
+      {
+        name: 'Cesar Salad',
+        ingredients: ['chicken strips', 'romaine lettuce', 'cheese', 'cesar salad dressing']
+      }
+    ]};
+  }
   render() {
     return (
       <div className="App">
-        <div className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h2>Welcome to React</h2>
-        </div>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
+        <RecipeItem recipeArray={this.state.recipeArray} />
       </div>
     );
   }
