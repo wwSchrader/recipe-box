@@ -38,7 +38,13 @@ class RecipeModal extends Component {
                                 placeholder="Name"
                             />
                         </FormGroup>
-
+                        <FormGroup controlId = "ingredientText">
+                            <ControlLabel>Ingredients</ControlLabel>
+                            <FormControl
+                                componentClass = 'textarea'
+                                placeholder= "List ingredients seperated by a comma"
+                            />
+                        </FormGroup>
                         <FormControl.Feedback />
                     </form>
                 </Modal.Body>
