@@ -45,7 +45,7 @@ class RecipeModal extends Component {
 
     render() {
         return (
-            <Modal show={this.state.showEditModal} onHide={this.close}>
+            <Modal show={this.state.showModal} onHide={this.close}>
                 <Modal.Header closeButton>
                     <Modal.Title>Add Recipe</Modal.Title>
                 </Modal.Header>
