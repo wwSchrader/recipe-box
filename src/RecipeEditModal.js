@@ -46,7 +46,7 @@ class RecipeModal extends Component {
     }
 
     render() {
-        var displayedIngredients = this.state.recipe.ingredients.join(', ');
+        var displayedIngredients = this.state.recipe.ingredients.join(',');
 
         return (
             <Modal show={this.state.showEditModal} onHide={this.close}>
