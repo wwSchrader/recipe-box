@@ -9,6 +9,13 @@ class RecipeItem extends Component {
             recipeArray: this.props.recipeArray
         }
     }
+
+    componentWillReceiveProps(nextProps) {
+        this.setState({
+            recipeArray: nextProps.recipeArray
+        });
+    }
+
     render() {
         var recipeItem = this.state.recipeArray.map((recipe, index) => {
             var ingredients = recipe.ingredients.map((ingredient) => {
