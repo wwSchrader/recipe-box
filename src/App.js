@@ -90,6 +90,7 @@ class App extends Component {
   render() {
     return (
       <div className="App">
+        <h1>Recipe Box</h1>
         <RecipeItem
           recipeArray={this.state.recipeArray}
           onDelete={this.onDelete}
