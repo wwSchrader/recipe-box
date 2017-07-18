@@ -31,13 +31,13 @@ class RecipeItem extends Component {
     render() {
         var recipeItem = this.state.recipeArray.map((recipe, index) => {
             var ingredients = recipe.ingredients.map((ingredient) => {
-                return <li class="recipe-header" key={recipe + ingredient}>{ingredient}</li>
+                return <li className="recipe-header" key={recipe + ingredient}>{ingredient}</li>
             });
 
             return (
                 <Panel key={index} header={recipe.name} eventKey={index}>
                     <ul> {ingredients} </ul>
-                    <Button class='delete-btn' bsStyle="danger" onClick={() => {this.handleOnDelete({index})}}>Delete</Button>
+                    <Button className='delete-btn' bsStyle="danger" onClick={() => {this.handleOnDelete({index})}}>Delete</Button>
                     <Button onClick={() => {this.handleOnEdit({index})}}>Edit</Button>
                 </Panel>
             );
