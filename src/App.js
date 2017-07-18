@@ -3,6 +3,7 @@ import './App.css';
 import RecipeItem from './RecipeItem.js';
 import {Button} from 'react-bootstrap';
 import RecipeModal from './RecipeModal.js';
+import RecipeEditModal from './RecipeEditModal.js';
 
 class App extends Component {
   constructor(props) {
@@ -23,12 +24,16 @@ class App extends Component {
           ingredients: ['chicken strips', 'romaine lettuce', 'cheese', 'cesar salad dressing']
         }
       ],
-      showModal: false
+      showModal: false,
+      showEditModal: false,
+      recipeToEdit: 0
     };
 
     this.openModal = this.openModal.bind(this);
     this.addRecipe = this.addRecipe.bind(this);
     this.onDelete = this.onDelete.bind(this);
+    this.onUpdate = this.onUpdate.bind(this);
+    this.onEditButtonPress = this.onEditButtonPress.bind(this);
   }
 
   openModal() {
@@ -53,16 +58,42 @@ class App extends Component {
     this.setState({
       recipeArray: recipeArray
     });
+  }
 
+  onUpdate(updatedRecipe) {
+    var recipeArray = this.state.recipeArray.slice();
+    recipeArray.splice(this.state.recipeToEdit, 1, updatedRecipe);
+    this.setState({
+      recipeArray: recipeArray,
+      showEditModal: false
+    });
+  }
 
+  onEditButtonPress(index) {
+    this.setState({
+      showEditModal: true,
+      recipeToEdit: index.index
+    });
   }
 
   render() {
     return (
       <div className="App">
-        <RecipeItem recipeArray={this.state.recipeArray} onDelete={this.onDelete}/>
-        <Button bsStyle="primary" onClick={() => this.openModal()}>Add a Recipe</Button>
-        <RecipeModal showModal={this.state.showModal} onAddRecipe={this.addRecipe}/>
+        <RecipeItem
+          recipeArray={this.state.recipeArray}
+          onDelete={this.onDelete}
+          onEditButton={this.onEditButtonPress}/>
+        <Button
+          bsStyle="primary"
+          onClick={() => this.openModal()}>Add a Recipe</Button>
+        <RecipeModal
+          showModal={this.state.showModal}
+          onAddRecipe={this.addRecipe}/>
+        <RecipeEditModal
+          showEditModal={this.state.showEditModal}
+          onUpdateRecipe={this.onUpdate}
+          recipeIndex={this.state.recipeToEdit}
+          recipeArrays={this.state.recipeArray}/>
       </div>
     );
   }

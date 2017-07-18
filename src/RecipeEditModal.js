@@ -5,49 +5,53 @@ class RecipeModal extends Component {
     constructor(props) {
         super(props);
 
+        this.recipeIndex = this.props.recipeIndex;
+
         this.state = {
-            showModal: this.props.showModal
-        }
+            recipe: this.props.recipeArrays[this.recipeIndex],
+            showEditModal: this.props.showEditModal,
+        };
 
         this.close = this.close.bind(this);
-        this.onAddRecipe = this.onAddRecipe.bind(this);
         this.onNameChange = this.onNameChange.bind(this);
         this.onIngredientChange = this.onIngredientChange.bind(this);
-
-        this.name = '';
-        this.ingredients = '';
+        this.onUpdateRecipe = this.onUpdateRecipe.bind(this);
     }
 
     componentWillReceiveProps(nextProps) {
         this.setState({
-            showModal: nextProps.showModal
+            recipe: nextProps.recipeArrays[nextProps.recipeIndex],
+            showEditModal: nextProps.showEditModal
         });
     }
 
     close() {
-        this.setState({ showModal: false});
+        this.setState({ showEditModal: false});
     }
 
     onNameChange(e) {
-        this.name = e.target.value;
+        var recipe = {...this.state.recipe}
+        recipe.name = e.target.value;
+        this.setState({recipe});
     }
 
     onIngredientChange(e) {
-        this.ingredients = e.target.value;
+        var recipe = {...this.state.recipe}
+        recipe.ingredients = e.target.value.split(',');
+        this.setState({recipe});
     }
 
-    onAddRecipe() {
-        this.props.onAddRecipe({
-            name: this.name,
-            ingredients: this.ingredients.split(',')
-        });
+    onUpdateRecipe() {
+        this.props.onUpdateRecipe(this.state.recipe);
     }
 
     render() {
+        var displayedIngredients = this.state.recipe.ingredients.join(', ');
+
         return (
             <Modal show={this.state.showEditModal} onHide={this.close}>
                 <Modal.Header closeButton>
-                    <Modal.Title>Add Recipe</Modal.Title>
+                    <Modal.Title>Edit Recipe</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     <form>
@@ -56,6 +60,7 @@ class RecipeModal extends Component {
                             <FormControl
                                 type='text'
                                 placeholder="Name"
+                                value={this.state.recipe.name}
                                 onChange={this.onNameChange}
                             />
                         </FormGroup>
@@ -64,6 +69,7 @@ class RecipeModal extends Component {
                             <FormControl
                                 componentClass = 'textarea'
                                 placeholder= "List ingredients seperated by a comma"
+                                value={displayedIngredients}
                                 onChange={this.onIngredientChange}
                             />
                         </FormGroup>
@@ -71,7 +77,7 @@ class RecipeModal extends Component {
                     </form>
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button bsStyle="primary" onClick={this.onAddRecipe}>Add Recipe</Button>
+                    <Button bsStyle="primary" onClick={this.onUpdateRecipe}>Update Recipe</Button>
                     <Button onClick={this.close}>Close</Button>
                 </Modal.Footer>
             </Modal>

@@ -10,6 +10,7 @@ class RecipeItem extends Component {
         }
 
         this.handleOnDelete = this.handleOnDelete.bind(this);
+        this.handleOnEdit = this.handleOnEdit.bind(this);
     }
 
     handleOnDelete(index){
@@ -22,6 +23,10 @@ class RecipeItem extends Component {
         });
     }
 
+    handleOnEdit(index){
+        this.props.onEditButton(index);
+    }
+
     render() {
         var recipeItem = this.state.recipeArray.map((recipe, index) => {
             var ingredients = recipe.ingredients.map((ingredient) => {
@@ -32,7 +37,7 @@ class RecipeItem extends Component {
                 <Panel key={index} header={recipe.name} eventKey={index}>
                     <ul> {ingredients} </ul>
                     <Button bsStyle="danger" onClick={() => {this.handleOnDelete({index})}}>Delete</Button>
-                    <Button>Edit</Button>
+                    <Button onClick={() => {this.handleOnEdit({index})}}>Edit</Button>
                 </Panel>
             );
         });
