@@ -10,20 +10,21 @@ class App extends Component {
     super(props);
 
     this.state = {
-      recipeArray: [
-        {
-          name: 'Pumpkin Pie',
-          ingredients: ['pumpkin', 'pie-crust', 'whip cream']
-        },
-        {
-          name: 'Hot Chocolate',
-          ingredients: ['Coco mix', 'hot water', 'milk']
-        },
-        {
-          name: 'Cesar Salad',
-          ingredients: ['chicken strips', 'romaine lettuce', 'cheese', 'cesar salad dressing']
-        }
-      ],
+      recipeArray: JSON.parse(localStorage.getItem('recipeArray')) ||
+        [
+          {
+            name: 'Pumpkin Pie',
+            ingredients: ['pumpkin', 'pie-crust', 'whip cream']
+          },
+          {
+            name: 'Hot Chocolate',
+            ingredients: ['Coco mix', 'hot water', 'milk']
+          },
+          {
+            name: 'Cesar Salad',
+            ingredients: ['chicken strips', 'romaine lettuce', 'cheese', 'cesar salad dressing']
+          }
+        ],
       showModal: false,
       showEditModal: false,
       recipeToEdit: 0
@@ -34,6 +35,10 @@ class App extends Component {
     this.onDelete = this.onDelete.bind(this);
     this.onUpdate = this.onUpdate.bind(this);
     this.onEditButtonPress = this.onEditButtonPress.bind(this);
+  }
+
+  getInitialState() {
+
   }
 
   openModal() {
@@ -49,6 +54,8 @@ class App extends Component {
     this.setState({
       recipeArray: recipeArray,
       showModal: false
+    }, () => {
+      localStorage.setItem('recipeArray', JSON.stringify(this.state.recipeArray))
     });
   }
 
@@ -57,6 +64,8 @@ class App extends Component {
     recipeArray.splice(index.index, 1);
     this.setState({
       recipeArray: recipeArray
+    }, () => {
+      localStorage.setItem('recipeArray', JSON.stringify(this.state.recipeArray))
     });
   }
 
@@ -66,6 +75,8 @@ class App extends Component {
     this.setState({
       recipeArray: recipeArray,
       showEditModal: false
+    }, () => {
+      localStorage.setItem('recipeArray', JSON.stringify(this.state.recipeArray))
     });
   }
 
