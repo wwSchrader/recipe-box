@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
-import {Accordion, Panel, Button} from 'react-bootstrap';
+import {Accordion, Panel, Button, Well} from 'react-bootstrap';
+import './RecipeItem.css';
 
 class RecipeItem extends Component {
     constructor(props) {
@@ -30,22 +31,24 @@ class RecipeItem extends Component {
     render() {
         var recipeItem = this.state.recipeArray.map((recipe, index) => {
             var ingredients = recipe.ingredients.map((ingredient) => {
-                return <li key={recipe + ingredient}>{ingredient}</li>
+                return <li class="recipe-header" key={recipe + ingredient}>{ingredient}</li>
             });
 
             return (
                 <Panel key={index} header={recipe.name} eventKey={index}>
                     <ul> {ingredients} </ul>
-                    <Button bsStyle="danger" onClick={() => {this.handleOnDelete({index})}}>Delete</Button>
+                    <Button class='delete-btn' bsStyle="danger" onClick={() => {this.handleOnDelete({index})}}>Delete</Button>
                     <Button onClick={() => {this.handleOnEdit({index})}}>Edit</Button>
                 </Panel>
             );
         });
 
         return (
-            <Accordion>
-                {recipeItem}
-            </Accordion>
+            <Well id='well'>
+                <Accordion>
+                    {recipeItem}
+                </Accordion>
+            </Well>
         );
     }
 }
