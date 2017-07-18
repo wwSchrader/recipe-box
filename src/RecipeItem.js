@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Accordion, Panel} from 'react-bootstrap';
+import {Accordion, Panel, Button} from 'react-bootstrap';
 
 class RecipeItem extends Component {
     constructor(props) {
@@ -8,6 +8,12 @@ class RecipeItem extends Component {
         this.state = {
             recipeArray: this.props.recipeArray
         }
+
+        this.handleOnDelete = this.handleOnDelete.bind(this);
+    }
+
+    handleOnDelete(index){
+        this.props.onDelete(index);
     }
 
     componentWillReceiveProps(nextProps) {
@@ -25,6 +31,8 @@ class RecipeItem extends Component {
             return (
                 <Panel key={index} header={recipe.name} eventKey={index}>
                     <ul> {ingredients} </ul>
+                    <Button bsStyle="danger" onClick={() => {this.handleOnDelete({index})}}>Delete</Button>
+                    <Button>Edit</Button>
                 </Panel>
             );
         });

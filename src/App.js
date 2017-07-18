@@ -28,17 +28,16 @@ class App extends Component {
 
     this.openModal = this.openModal.bind(this);
     this.addRecipe = this.addRecipe.bind(this);
+    this.onDelete = this.onDelete.bind(this);
   }
 
   openModal() {
     this.setState({
       showModal: true
     });
-    console.log(this.state.recipeArray);
   }
 
   addRecipe(newRecipe) {
-    console.log(this.state.recipeArray);
     var recipeArray = this.state.recipeArray.slice();
     recipeArray.push(newRecipe);
 
@@ -48,11 +47,20 @@ class App extends Component {
     });
   }
 
+  onDelete(index) {
+    var recipeArray = this.state.recipeArray.slice();
+    recipeArray.splice(index.index, 1);
+    this.setState({
+      recipeArray: recipeArray
+    });
+
+
+  }
+
   render() {
-    console.log(this.state.recipeArray);
     return (
       <div className="App">
-        <RecipeItem recipeArray={this.state.recipeArray} />
+        <RecipeItem recipeArray={this.state.recipeArray} onDelete={this.onDelete}/>
         <Button bsStyle="primary" onClick={() => this.openModal()}>Add a Recipe</Button>
         <RecipeModal showModal={this.state.showModal} onAddRecipe={this.addRecipe}/>
       </div>
